@@ -4,9 +4,14 @@ A complete Python-based web scraping, machine learning segmentation, and interac
 
 ---
 
-## 1. Launching the Standalone Application
+## 1. Live Web Application & Launching Options
 
-You can launch the standalone visual analytics application in three ways:
+* **🌐 Live Published Web Application (GitHub Pages):**  
+  **[https://aymen07171.github.io/etsy-digital-market-intelligence/](https://aymen07171.github.io/etsy-digital-market-intelligence/)**
+* **📦 GitHub Repository:**  
+  **[https://github.com/Aymen07171/etsy-digital-market-intelligence](https://github.com/Aymen07171/etsy-digital-market-intelligence)**
+
+You can also launch the standalone visual analytics application locally in three ways:
 
 1. **One-Click Windows Desktop App Launcher:**
    Double-click [`Launch_Etsy_App.bat`](file:///c:/Users/jacka/Downloads/Etsy%20Analytics/Launch_Etsy_App.bat) to start the local Python backend server (`http://127.0.0.1:8050`) and open the application in a native-style Chrome `--app` window.
@@ -15,7 +20,7 @@ You can launch the standalone visual analytics application in three ways:
    .\.venv\Scripts\python.exe app.py
    ```
 3. **Zero-Dependency Portable HTML Application:**
-   Open [`output/Etsy_Market_Intelligence_App.html`](file:///c:/Users/jacka/Downloads/Etsy%20Analytics/output/Etsy_Market_Intelligence_App.html) directly in any browser—all 4,000 scraped listings, 10 keyword analyses, 180 store benchmarks, ML PCA clusters, and Pinterest marketing strategies are pre-compiled inside.
+   Open [`output/Etsy_Market_Intelligence_App.html`](file:///c:/Users/jacka/Downloads/Etsy%20Analytics/output/Etsy_Market_Intelligence_App.html) or [`index.html`](file:///c:/Users/jacka/Downloads/Etsy%20Analytics/index.html) directly in any browser—all 4,000 scraped listings, 10 keyword analyses, 180 store benchmarks, ML PCA clusters, and Pinterest marketing strategies are pre-compiled inside.
 
 ---
 

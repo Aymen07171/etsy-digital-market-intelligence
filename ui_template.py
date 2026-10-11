@@ -1900,7 +1900,7 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
 
     function inferKeywordProfile(kw, rng) {{
       const lower = kw.toLowerCase();
-      const wordCount = lower.split(/\s+/).filter(Boolean).length;
+      const wordCount = lower.split(/\\s+/).filter(Boolean).length;
       // Longer-tail keywords (3+ words) have lower competition and higher targeted conversion velocity
       const longTailFactor = wordCount >= 4 ? 0.25 : (wordCount === 3 ? 0.45 : (wordCount === 2 ? 1.15 : 2.2));
 
@@ -2003,7 +2003,7 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
       APP_DATA.keywords = APP_DATA.keywords.filter(k => k.keyword.toLowerCase() !== kwClean);
       APP_DATA.pinterest_strategies = APP_DATA.pinterest_strategies.filter(p => p.keyword.toLowerCase() !== kwClean);
 
-      const words = kwClean.split(/\s+/).filter(Boolean);
+      const words = kwClean.split(/\\s+/).filter(Boolean);
       const slug = words.slice(0, 2).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
       const titleKw = words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 

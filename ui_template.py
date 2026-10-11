@@ -885,6 +885,65 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
             </table>
           </div>
         </div>
+
+        <!-- 70s Psychedelic Mushroom Frog & Lava Lamp Sub-Niche Deep-Dive -->
+        <div class="card" style="border:2px solid #0e6b40;background:#fbfdfc;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🐸 Deep-Dive Sub-Niche Discovery: "70s Psychedelic Mushroom Frog & Lava Lamp Case" (Etsy + Google 10-Page Matrix)</div>
+              <div class="card-subtitle">Comparing 10 micro-variations across Etsy & Google monthly search volume, competing listings, Moroccan & 50–80 sales stores, and Opportunity Score</div>
+            </div>
+            <span class="badge-pill badge-low">🐸 Sub-Niche Lab (4,000 Listings)</span>
+          </div>
+          <div class="table-container">
+            <table class="erank-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Sub-Niche Variation</th>
+                  <th>Target Long-Tail Keyword</th>
+                  <th class="num">Etsy Vol</th>
+                  <th class="num">Google Vol</th>
+                  <th class="num">YoY Growth</th>
+                  <th class="num">Competing Listings</th>
+                  <th class="num">Avg Price ($)</th>
+                  <th class="num">🇲🇦 MA Shops</th>
+                  <th class="num">🚀 50–80 Shops</th>
+                  <th class="num">Sub-Niche Opp Score</th>
+                  <th>Strategic Verdict</th>
+                </tr>
+              </thead>
+              <tbody id="frog-subniches-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 70s Frog & Lava Lamp Design Element Decomposition -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🍄 9:16 Design Element Decomposition (Character Pose · 70s Palette · Surface Finish)</div>
+              <div class="card-subtitle">Performance breakdown of lower-65% character poses, retro color palettes, and surface textures across 4,000 sub-niche listings</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="erank-table">
+              <thead>
+                <tr>
+                  <th>Element Dimension</th>
+                  <th>Specific Design Attribute</th>
+                  <th class="num">Listings Count</th>
+                  <th class="num">Avg Price ($)</th>
+                  <th class="num">Avg Est. Sales</th>
+                  <th class="num">Avg Est. Revenue ($)</th>
+                  <th class="num">Popular Now %</th>
+                  <th class="num">Element Opp Score</th>
+                </tr>
+              </thead>
+              <tbody id="frog-elements-tbody"></tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
       <!-- ===================================================================== -->
@@ -1161,6 +1220,44 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
           }},
           options: {{ indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }} }}
         }});
+      }}
+
+      // Render 70s Frog & Lava Lamp Sub-Niche Matrix
+      const frogSubTbody = document.getElementById('frog-subniches-tbody');
+      if (frogSubTbody && pc.frog_subniches) {{
+        frogSubTbody.innerHTML = pc.frog_subniches.map((s, idx) => `
+          <tr>
+            <td><strong>#${{idx + 1}}</strong></td>
+            <td style="font-weight:700;color:#064428;">🐸 ${{s.subniche_label}}</td>
+            <td><code>${{s.subniche_keyword}}</code></td>
+            <td class="num"><strong>${{fmtNum(s.etsy_monthly_searches)}}</strong></td>
+            <td class="num">${{fmtNum(s.google_monthly_searches)}}</td>
+            <td class="num" style="color:#0b6e40;font-weight:700;">+${{s.yoy_growth_pct.toFixed(1)}}%</td>
+            <td class="num">${{fmtNum(s.competing_listings)}}</td>
+            <td class="num"><strong>${{fmtUsd(s.avg_price_usd)}}</strong></td>
+            <td class="num"><span class="badge-pill badge-low">🇲🇦 ${{s.moroccan_shops_active}}</span></td>
+            <td class="num"><span class="badge-pill badge-mod">🚀 ${{s.emerging_50_80_shops_active}}</span></td>
+            <td class="num">${{getOppBadge(s.subniche_opportunity_score)}}</td>
+            <td style="font-size:11.5px;font-weight:600;">${{s.subniche_verdict}}</td>
+          </tr>
+        `).join('');
+      }}
+
+      // Render 70s Frog & Lava Lamp Design Element Decomposition
+      const frogElTbody = document.getElementById('frog-elements-tbody');
+      if (frogElTbody && pc.frog_design_elements) {{
+        frogElTbody.innerHTML = pc.frog_design_elements.map(e => `
+          <tr>
+            <td><span class="badge-pill badge-mod">${{e.element_dimension}}</span></td>
+            <td style="font-weight:700;">${{e.element_value}}</td>
+            <td class="num">${{fmtNum(e.listings_count)}}</td>
+            <td class="num"><strong>${{fmtUsd(e.avg_price_usd)}}</strong></td>
+            <td class="num">${{fmtNum(e.avg_sales)}}</td>
+            <td class="num"><strong>${{fmtUsd(e.avg_revenue_usd)}}</strong></td>
+            <td class="num" style="color:#d35400;font-weight:700;">🔥 ${{e.popular_now_pct.toFixed(1)}}%</td>
+            <td class="num">${{getOppBadge(e.element_opportunity_score)}}</td>
+          </tr>
+        `).join('');
       }}
     }}
 

@@ -49,7 +49,7 @@ SEASONAL_WEIGHTS_BY_CATEGORY: Dict[str, List[float]] = {
 
 
 def _load_or_build_phone_case_payload() -> Dict[str, Any]:
-    """Loads or builds the 10-page Phone Case Niche Intelligence dataset."""
+    """Loads or builds the 10-page Phone Case Niche Intelligence dataset & 70s Frog Sub-Niche Matrix."""
     pc_dir = OUTPUT_DIR / "phone_cases"
     kw_csv = pc_dir / "phone_case_keywords.csv"
     ma_csv = pc_dir / "moroccan_stores.csv"
@@ -74,12 +74,31 @@ def _load_or_build_phone_case_payload() -> Dict[str, Any]:
         design_df = pd.read_csv(des_csv)
         all_stores_df = pd.read_csv(st_csv)
 
+    frog_dir = OUTPUT_DIR / "frog_subniches"
+    frog_matrix_csv = frog_dir / "subniche_matrix.csv"
+    frog_win_csv = frog_dir / "winning_variations.csv"
+    frog_el_csv = frog_dir / "design_elements.csv"
+
+    if not (frog_matrix_csv.exists() and frog_win_csv.exists() and frog_el_csv.exists()):
+        from frog_subniche_research import run_frog_subniche_research
+        frog_res = run_frog_subniche_research(live_mode=False)
+        frog_matrix_df = frog_res["subniche_df"]
+        frog_win_df = frog_res["winning_variations_df"]
+        frog_el_df = frog_res["design_elements_df"]
+    else:
+        frog_matrix_df = pd.read_csv(frog_matrix_csv)
+        frog_win_df = pd.read_csv(frog_win_csv)
+        frog_el_df = pd.read_csv(frog_el_csv)
+
     return {
         "keywords": kw_df.to_dict(orient="records"),
         "moroccan_stores": moroccan_df.to_dict(orient="records"),
         "emerging_50_80_stores": emerging_df.to_dict(orient="records"),
         "digital_designs": design_df.to_dict(orient="records"),
         "all_stores": all_stores_df.to_dict(orient="records"),
+        "frog_subniches": frog_matrix_df.to_dict(orient="records"),
+        "frog_winning_variations": frog_win_df.head(30).to_dict(orient="records"),
+        "frog_design_elements": frog_el_df.to_dict(orient="records"),
     }
 
 

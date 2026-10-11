@@ -1,20 +1,22 @@
 """
 Builds the enriched JSON payload for the Standalone Etsy Market Intelligence Application.
 
-Transforms the scraped 10-page listings, keyword aggregations, store benchmarks,
-ML PCA cluster coordinates, and Pinterest marketing strategies into an eRank-compatible
-analytical payload with 12-month trend sparklines, Trend Buzz metrics (Avg Searches,
-Avg Clicks, Avg CTR, KD, Competition), and Page 1-10 decay curves.
+Includes both the Digital Products corpus AND the complete Phone Case Niche Intelligence
+corpus (10-page keyword aggregations, Moroccan Stores Spotlight, Emerging 50-80 Sales
+Breakout Stores, and High-Demand / Low-Competition Digital Case Design evaluations).
 """
 
 from __future__ import annotations
 
-import math
 import random
+from pathlib import Path
 from typing import Any, Dict, List
 
-import numpy as np
 import pandas as pd
+
+from config import OUTPUT_DIR
+from phone_case_analyzer import PhoneCaseMarketAnalyzer
+from phone_case_scraper import EtsyPhoneCaseScraper
 
 
 MONTH_LABELS = [
@@ -46,6 +48,41 @@ SEASONAL_WEIGHTS_BY_CATEGORY: Dict[str, List[float]] = {
 }
 
 
+def _load_or_build_phone_case_payload() -> Dict[str, Any]:
+    """Loads or builds the 10-page Phone Case Niche Intelligence dataset."""
+    pc_dir = OUTPUT_DIR / "phone_cases"
+    kw_csv = pc_dir / "phone_case_keywords.csv"
+    ma_csv = pc_dir / "moroccan_stores.csv"
+    em_csv = pc_dir / "emerging_50_80_sales_stores.csv"
+    des_csv = pc_dir / "digital_case_designs.csv"
+    st_csv = pc_dir / "phone_case_stores_all.csv"
+
+    if not (kw_csv.exists() and ma_csv.exists() and em_csv.exists() and des_csv.exists()):
+        scraper = EtsyPhoneCaseScraper(max_pages=10)
+        pc_listings = scraper.scrape_all_keywords(force_simulation=True)
+        pc_analyzer = PhoneCaseMarketAnalyzer(pc_listings)
+        kw_df = pc_analyzer.aggregate_keywords()
+        all_stores_df, moroccan_df, emerging_df = pc_analyzer.aggregate_all_stores()
+        enriched_df, design_df, ml_diag = pc_analyzer.evaluate_digital_case_designs_and_cluster(kw_df)
+        pc_analyzer.export_all_phone_case_deliverables(
+            enriched_df, kw_df, all_stores_df, moroccan_df, emerging_df, design_df, ml_diag
+        )
+    else:
+        kw_df = pd.read_csv(kw_csv)
+        moroccan_df = pd.read_csv(ma_csv)
+        emerging_df = pd.read_csv(em_csv)
+        design_df = pd.read_csv(des_csv)
+        all_stores_df = pd.read_csv(st_csv)
+
+    return {
+        "keywords": kw_df.to_dict(orient="records"),
+        "moroccan_stores": moroccan_df.to_dict(orient="records"),
+        "emerging_50_80_stores": emerging_df.to_dict(orient="records"),
+        "digital_designs": design_df.to_dict(orient="records"),
+        "all_stores": all_stores_df.to_dict(orient="records"),
+    }
+
+
 def build_application_payload(
     listings_df: pd.DataFrame,
     kw_df: pd.DataFrame,
@@ -60,7 +97,6 @@ def build_application_payload(
     """
     rng = random.Random(42)
 
-    # 1. Enrich Keyword Analysis with eRank Trend Buzz & Monthly Trends metrics
     keywords_enriched: List[Dict[str, Any]] = []
     for rank_idx, (_, row) in enumerate(kw_df.iterrows(), start=1):
         kw = str(row["keyword"])
@@ -71,7 +107,6 @@ def build_application_payload(
         weights = SEASONAL_WEIGHTS_BY_CATEGORY.get(
             cat, [0.95, 1.05, 1.15, 1.08, 1.02, 0.98, 0.94, 0.92, 0.98, 1.06, 1.12, 1.15]
         )
-        # Apply secular growth trend across the 12 months
         monthly_series: List[Dict[str, Any]] = []
         for m_idx, (m_label, w) in enumerate(zip(MONTH_LABELS, weights)):
             growth_prog = 1.0 + (yoy / 100.0) * ((m_idx - 5.5) / 12.0)
@@ -81,8 +116,6 @@ def build_application_payload(
 
         peak_entry = max(monthly_series, key=lambda x: x["searches"])
 
-        # eRank Trend Buzz metrics: Avg Clicks, Avg CTR %, Search Interest, KD (Keyword Difficulty)
-        # High-intent utility searches have higher click-through rates (~92% to 114% due to multi-tab opening)
         ctr_base = 84.0 + (float(row["demand_score"]) * 0.28) - (float(row["ad_saturation_pct"]) * 0.15)
         avg_ctr_pct = round(min(118.0, max(62.0, ctr_base)), 1)
         avg_clicks = int(round(base_vol * (avg_ctr_pct / 100.0), -1))
@@ -90,7 +123,6 @@ def build_application_payload(
         kd_score = int(round(float(row["competition_score"])))
         is_hot_yesterday = bool(yoy >= 20.0 or float(row["popular_now_rate_pct"]) >= 22.0)
 
-        # Page 1 to 10 Decay Curve for this keyword
         kw_listings = listings_df[listings_df["keyword"] == kw]
         page_curve: List[Dict[str, Any]] = []
         for p in range(1, 11):
@@ -125,17 +157,10 @@ def build_application_payload(
         )
         keywords_enriched.append(kw_dict)
 
-    # 2. Prepare Store Performance Leaderboard (Top 180 stores)
     stores_list = store_df.to_dict(orient="records")
-
-    # 3. Prepare Trending Digital Product Opportunities (Top 50)
     trending_list = trending_df.to_dict(orient="records")
-
-    # 4. Prepare Pinterest Strategy Playbooks
     pinterest_list = pinterest_df.to_dict(orient="records")
 
-    # 5. Prepare Listings Explorer & PCA Scatter Sample
-    # Include all 4,000 listings with compact keys for rapid client-side filtering & pagination
     listings_cols = [
         "listing_id",
         "keyword",
@@ -172,7 +197,6 @@ def build_application_payload(
     available_cols = [c for c in listings_cols if c in listings_df.columns]
     listings_records = listings_df[available_cols].to_dict(orient="records")
 
-    # Global KPI Summary
     kpis = {
         "total_listings_scraped": int(len(listings_df)),
         "total_keywords": int(len(kw_df)),
@@ -185,6 +209,8 @@ def build_application_payload(
         "top_opportunity_score": float(kw_df.iloc[0]["opportunity_score"]) if not kw_df.empty else 0.0,
     }
 
+    phone_cases_payload = _load_or_build_phone_case_payload()
+
     return {
         "kpis": kpis,
         "ml_diagnostics": ml_diagnostics,
@@ -193,4 +219,5 @@ def build_application_payload(
         "trending_opportunities": trending_list,
         "pinterest_strategies": pinterest_list,
         "listings": listings_records,
+        "phone_cases": phone_cases_payload,
     }

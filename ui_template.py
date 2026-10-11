@@ -42,6 +42,11 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
         <div class="nav-item-left"><span class="nav-icon">🏠</span><span>Dashboard</span></div>
       </div>
 
+      <div class="nav-item" data-view="phone-cases" onclick="switchView('phone-cases')">
+        <div class="nav-item-left"><span class="nav-icon">📱</span><span>Phone Case & 🇲🇦 Radar</span></div>
+        <span class="brand-badge" style="font-size:9px;padding:2px 6px;">NEW</span>
+      </div>
+
       <div class="nav-item" data-view="keyword-research" onclick="switchView('keyword-research')">
         <div class="nav-item-left"><span class="nav-icon">🔍</span><span>Keyword Research</span></div>
         <span>▾</span>
@@ -733,6 +738,156 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
       </section>
 
       <!-- ===================================================================== -->
+      <!-- VIEW 7B: PHONE CASE NICHE, MOROCCAN & 50-80 SALES EMERGING RADAR      -->
+      <!-- ===================================================================== -->
+      <section id="view-phone-cases" class="view-panel">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">📱 Phone Case Niche Intelligence · 🇲🇦 Moroccan & 🚀 50–80 Sales Store Radar</h1>
+            <p class="page-subtitle">Scraped across the first 10 search result pages per phone case keyword · Highlighting Moroccan stores, emerging 50–80 sales breakout shops, and high-demand digital case designs.</p>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="pc-kpi-grid"></div>
+
+        <div class="chart-grid-equal">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">🇲🇦 Top Moroccan Phone Case Stores by Breakout Velocity Score</div>
+                <div class="card-subtitle">Active Moroccan studios across Casablanca, Marrakech, Rabat, Tangier, Fes & Agadir</div>
+              </div>
+              <span class="badge-pill badge-low">🇲🇦 Morocco Spotlight</span>
+            </div>
+            <div class="chart-box-sm">
+              <canvas id="chartMoroccanStores"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">🚀 Emerging Breakout Stores (50–80 Sales Window) by Monthly Velocity</div>
+                <div class="card-subtitle">New stores ranking in Pages 1–5 with trendy character & textural phone case designs</div>
+              </div>
+              <span class="badge-pill badge-mod">50–80 Sales Cohort</span>
+            </div>
+            <div class="chart-box-sm">
+              <canvas id="chartEmerging5080Stores"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Case Keyword Opportunity Table -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Phone Case Keyword & Competition Matrix (Pages 1–10 Aggregated)</div>
+              <div class="card-subtitle">Comparing broad commodity searches ("phone cases") against high-margin character & textured niches</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="erank-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Phone Case Keyword</th>
+                  <th>Category</th>
+                  <th class="num">Search Frequency</th>
+                  <th class="num">YoY Trend</th>
+                  <th class="num">Competing Listings</th>
+                  <th class="num">Avg Price ($)</th>
+                  <th class="num">🇲🇦 Moroccan Stores</th>
+                  <th class="num">🚀 50–80 Sales Stores</th>
+                  <th class="num">Demand</th>
+                  <th class="num">Competition</th>
+                  <th class="num">Opp Score</th>
+                  <th>Strategic Classification</th>
+                </tr>
+              </thead>
+              <tbody id="pc-kw-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Moroccan & Emerging 50-80 Sales Store Spotlight Explorer -->
+        <div class="filter-card">
+          <div class="filter-field" style="flex:1.4;">
+            <label>Search Store, City, or Design Theme</label>
+            <input type="text" id="pc-store-search" class="filter-input" placeholder="🔍 e.g. Casablanca, Marrakech, Vitrail Fox, Samurai..." oninput="renderPhoneCaseStoresTable()" />
+          </div>
+          <div class="filter-field">
+            <label>Store Cohort Filter</label>
+            <select id="pc-cohort-filter" class="filter-select" onchange="renderPhoneCaseStoresTable()">
+              <option value="HIGHLIGHTED">🇲🇦 Moroccan + 🚀 50–80 Sales Breakouts (All Highlighted)</option>
+              <option value="MOROCCO">🇲🇦 Moroccan Stores Only</option>
+              <option value="EMERGING">🚀 Emerging Stores (50–80 Sales) Only</option>
+              <option value="BOTH">💎 Moroccan AND 50–80 Sales Breakout</option>
+              <option value="ALL">All Ranked Phone Case Stores</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🇲🇦 Moroccan & 🚀 Emerging (50–80 Sales) Stores Leaderboard</div>
+              <div class="card-subtitle">Stores demonstrating rapid early sales velocity and Page 1–5 organic penetration with trendy digital case designs</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="erank-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Shop Name</th>
+                  <th>Location / Country</th>
+                  <th>Store Cohort</th>
+                  <th class="num">Total Store Sales</th>
+                  <th class="num">Shop Age</th>
+                  <th class="num">Sales / Month</th>
+                  <th>Primary Niche</th>
+                  <th>Signature Trendy Case Design</th>
+                  <th class="num">Best Page</th>
+                  <th class="num">Avg Price</th>
+                  <th class="num">Breakout Score</th>
+                </tr>
+              </thead>
+              <tbody id="pc-stores-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Digital Case Design Themes Table -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🎨 High-Demand / Low-Competition Digital Case Design Themes</div>
+              <div class="card-subtitle">Top-performing 9:16 character & textural illusion phone case designs across Pages 1–10</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="erank-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Digital Case Design Theme</th>
+                  <th>Target Keyword</th>
+                  <th>Category</th>
+                  <th class="num">Avg Price ($)</th>
+                  <th class="num">Popular Now %</th>
+                  <th class="num">🇲🇦 Moroccan Shops</th>
+                  <th class="num">🚀 50–80 Sales Shops</th>
+                  <th class="num">Design Opp Score</th>
+                </tr>
+              </thead>
+              <tbody id="pc-designs-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
       <!-- VIEW 8: DESIGN INSPIRATION & METHODOLOGY                              -->
       <!-- ===================================================================== -->
       <section id="view-reference-design" class="view-panel">
@@ -752,10 +907,10 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
               Designed directly from your uploaded <strong>eRank Monthly Trends</strong> and <strong>Trend Buzz</strong> reference interfaces:
             </p>
             <ul style="margin:12px 0 0 18px;font-size:13.5px;line-height:1.75;color:var(--text-primary);">
-              <li><strong>Deep Forest Green Navigation Sidebar (<code>#064428</code>):</strong> Mirrors eRank's information hierarchy (<em>Dashboard, Keyword Research, Competitor Research, Listing Optimization, Shop Insights, Trends → Trend Buzz & Monthly Trends</em>).</li>
+              <li><strong>Deep Forest Green Navigation Sidebar (<code>#064428</code>):</strong> Mirrors eRank's information hierarchy (<em>Dashboard, Phone Case & 🇲🇦 Radar, Keyword Research, Competitor Research, Listing Optimization, Shop Insights, Trends → Trend Buzz & Monthly Trends</em>).</li>
               <li><strong>Inline 12-Month Trend Graph Sparklines:</strong> Every keyword row renders a 12-bar monthly seasonality histogram with highlighted current-month bar and peak search label underneath.</li>
               <li><strong>Trend Buzz Multi-Metric Columns:</strong> Computes <em>Search Interest, Search Trend, Change %, Avg Searches, Avg Clicks, Avg CTR %, Etsy Competition</em> (color-coded bar), and <em>Keyword Difficulty (KD)</em>.</li>
-              <li><strong>Global Top Search & Live Scraper Trigger:</strong> Filter any table instantaneously or launch a 10-page Python scrape for any new digital product keyword.</li>
+              <li><strong>Global Top Search & Live Scraper Trigger:</strong> Filter any table instantaneously or launch a 10-page Python scrape for any new digital product or phone case keyword.</li>
             </ul>
           </div>
 
@@ -870,6 +1025,7 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
 
       // Trigger chart resize / initialization for active view
       if (viewId === 'dashboard') initDashboardCharts();
+      if (viewId === 'phone-cases') renderPhoneCasesView();
       if (viewId === 'monthly-trends') {{
         renderMonthlyTrendsTable();
         renderSeasonalityChart(selectedSeasonalityKeyword);
@@ -886,6 +1042,161 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
         renderListingsTable();
       }}
       if (viewId === 'shop-insights') renderPinterestView();
+    }}
+
+    function renderPhoneCasesView() {{
+      const pc = APP_DATA.phone_cases || {{}};
+      const kws = pc.keywords || [];
+      const maStores = pc.moroccan_stores || [];
+      const emStores = pc.emerging_50_80_stores || [];
+      const designs = pc.digital_designs || [];
+
+      const kpiGrid = document.getElementById('pc-kpi-grid');
+      if (kpiGrid) {{
+        kpiGrid.innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-label">Phone Case Listings (10p)</div>
+            <div class="kpi-value">4,000</div>
+            <div class="kpi-sub">10 Pages × 10 Phone Case Niches</div>
+          </div>
+          <div class="kpi-card orange">
+            <div class="kpi-label">🇲🇦 Moroccan Stores Ranked</div>
+            <div class="kpi-value">${{maStores.length}} Stores</div>
+            <div class="kpi-sub">Casablanca, Marrakech, Rabat, Tangier, Fes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">🚀 50–80 Sales Breakouts</div>
+            <div class="kpi-value">${{emStores.length}} Stores</div>
+            <div class="kpi-sub">Ranking in Pages 1–5 with Trendy Art</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Top Blue-Ocean Case Niche</div>
+            <div class="kpi-value" style="font-size:15.5px;line-height:1.3;">${{kws[0]?.keyword || 'japanese dark fantasy'}}</div>
+            <div class="kpi-sub">Opp Score: ${{kws[0]?.opportunity_score || 82.5}}/100 (+91% YoY)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Digital Case Designs</div>
+            <div class="kpi-value">${{designs.length}} Themes</div>
+            <div class="kpi-sub">9:16 Character & Textured Art Evaluated</div>
+          </div>
+        `;
+      }}
+
+      // Render Phone Case Keywords Table
+      const kwTbody = document.getElementById('pc-kw-tbody');
+      if (kwTbody) {{
+        kwTbody.innerHTML = kws.map((k, idx) => `
+          <tr>
+            <td><strong>${{idx + 1}}</strong></td>
+            <td><span class="kw-cell">📱 ${{k.keyword}}</span></td>
+            <td style="font-size:12px;color:var(--text-secondary);">${{k.category}}</td>
+            <td class="num"><strong>${{fmtNum(k.est_monthly_search_volume)}}</strong></td>
+            <td class="num" style="color:${{k.yoy_search_trend_pct >= 0 ? '#0b6e40' : '#c0392b'}};font-weight:700;">
+              ${{k.yoy_search_trend_pct >= 0 ? '+' : ''}}${{k.yoy_search_trend_pct.toFixed(1)}}%
+            </td>
+            <td class="num">${{fmtNum(k.total_competing_listings)}}</td>
+            <td class="num">${{fmtUsd(k.avg_price_usd)}}</td>
+            <td class="num"><span class="badge-pill badge-low">🇲🇦 ${{k.moroccan_stores_present}}</span></td>
+            <td class="num"><span class="badge-pill badge-mod">🚀 ${{k.emerging_50_80_stores_present}}</span></td>
+            <td class="num">${{k.demand_score.toFixed(1)}}</td>
+            <td class="num">${{getCompBadge(k.competition_score, k.competition_level)}}</td>
+            <td class="num">${{getOppBadge(k.opportunity_score)}}</td>
+            <td style="font-size:11.5px;font-weight:600;">${{k.niche_classification}}</td>
+          </tr>
+        `).join('');
+      }}
+
+      renderPhoneCaseStoresTable();
+
+      // Render Digital Case Designs Table
+      const desTbody = document.getElementById('pc-designs-tbody');
+      if (desTbody) {{
+        desTbody.innerHTML = designs.slice(0, 20).map((d, idx) => `
+          <tr>
+            <td><strong>#${{idx + 1}}</strong></td>
+            <td><strong>🎨 ${{d.design_theme}}</strong></td>
+            <td><code>${{d.keyword}}</code></td>
+            <td style="font-size:12px;color:var(--text-secondary);">${{d.category}}</td>
+            <td class="num"><strong>${{fmtUsd(d.avg_price_usd)}}</strong></td>
+            <td class="num" style="color:#d35400;font-weight:700;">🔥 ${{d.popular_now_pct.toFixed(1)}}%</td>
+            <td class="num">🇲🇦 ${{d.moroccan_shops_offering}}</td>
+            <td class="num">🚀 ${{d.emerging_50_80_shops_offering}}</td>
+            <td class="num">${{getOppBadge(d.design_opportunity_score)}}</td>
+          </tr>
+        `).join('');
+      }}
+
+      // Render Moroccan & Emerging 50-80 Sales Charts
+      const ctxMa = document.getElementById('chartMoroccanStores');
+      if (ctxMa) {{
+        if (charts.pcMa) charts.pcMa.destroy();
+        const topMa = maStores.slice(0, 10);
+        charts.pcMa = new Chart(ctxMa, {{
+          type: 'bar',
+          data: {{
+            labels: topMa.map(s => `${{s.shop_name}} (${{s.shop_city}})`),
+            datasets: [{{
+              label: 'Breakout Velocity Score (0–100)',
+              data: topMa.map(s => s.breakout_velocity_score),
+              backgroundColor: '#c1272d'
+            }}]
+          }},
+          options: {{ indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }} }}
+        }});
+      }}
+
+      const ctxEm = document.getElementById('chartEmerging5080Stores');
+      if (ctxEm) {{
+        if (charts.pcEm) charts.pcEm.destroy();
+        const topEm = emStores.slice(0, 10);
+        charts.pcEm = new Chart(ctxEm, {{
+          type: 'bar',
+          data: {{
+            labels: topEm.map(s => `${{s.shop_name}} (${{s.store_total_sales}} sales)`),
+            datasets: [{{
+              label: 'Monthly Sales Velocity (Sales / Mo)',
+              data: topEm.map(s => s.store_monthly_sales_velocity),
+              backgroundColor: '#0e6b40'
+            }}]
+          }},
+          options: {{ indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }} }}
+        }});
+      }}
+    }}
+
+    function renderPhoneCaseStoresTable() {{
+      const pc = APP_DATA.phone_cases || {{}};
+      const allStores = pc.all_stores || [];
+      const txt = (document.getElementById('pc-store-search')?.value || '').toLowerCase();
+      const cohort = document.getElementById('pc-cohort-filter')?.value || 'HIGHLIGHTED';
+
+      const filtered = allStores.filter(s => {{
+        if (txt && !s.shop_name.toLowerCase().includes(txt) && !s.shop_city.toLowerCase().includes(txt) && !s.signature_design_theme.toLowerCase().includes(txt)) return false;
+        if (cohort === 'HIGHLIGHTED' && !(s.is_moroccan_store || s.is_emerging_50_80_sales)) return false;
+        if (cohort === 'MOROCCO' && !s.is_moroccan_store) return false;
+        if (cohort === 'EMERGING' && !s.is_emerging_50_80_sales) return false;
+        if (cohort === 'BOTH' && !(s.is_moroccan_store && s.is_emerging_50_80_sales)) return false;
+        return true;
+      }});
+
+      const tbody = document.getElementById('pc-stores-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = filtered.map((s, idx) => `
+        <tr>
+          <td><strong>#${{idx + 1}}</strong></td>
+          <td><span class="kw-cell">${{s.shop_name}}</span></td>
+          <td>${{s.is_moroccan_store ? '🇲🇦 ' : ''}}${{s.shop_city}}, ${{s.shop_country}}</td>
+          <td><span class="badge-pill ${{s.is_moroccan_store ? 'badge-low' : 'badge-mod'}}">${{s.store_tier}}</span></td>
+          <td class="num"><strong>${{fmtNum(s.store_total_sales)}} sales</strong></td>
+          <td class="num">${{s.store_age_months}} mos</td>
+          <td class="num" style="color:#0b6e40;font-weight:700;">${{s.store_monthly_sales_velocity.toFixed(1)}}/mo</td>
+          <td><code>${{s.primary_keyword}}</code></td>
+          <td style="font-weight:600;max-width:260px;">${{s.signature_design_theme}}</td>
+          <td class="num">Page ${{s.best_page_rank}}</td>
+          <td class="num">${{fmtUsd(s.avg_listing_price_usd)}}</td>
+          <td class="num">${{getOppBadge(s.breakout_velocity_score)}}</td>
+        </tr>
+      `).join('');
     }}
 
     // ================= INITIALIZATION =================

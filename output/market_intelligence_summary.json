@@ -1,0 +1,211 @@
+{
+  "total_listings_scraped": 4000,
+  "total_keywords_analyzed": 10,
+  "total_unique_stores": 180,
+  "ml_clustering_diagnostics": {
+    "silhouette_scores_by_k": {
+      "3": 0.2565,
+      "4": 0.2486,
+      "5": 0.2338,
+      "6": 0.2576
+    },
+    "optimal_k": 6,
+    "best_silhouette_score": 0.2576,
+    "pca_explained_variance_ratio": [
+      0.4043,
+      0.3171
+    ],
+    "cluster_personas": {
+      "0": "Cluster 0: High-Growth Blue Ocean",
+      "1": "Cluster 1: High-Growth Blue Ocean",
+      "2": "Cluster 2: High-Competition Commodity Prints",
+      "3": "Cluster 3: Mid-Tier Evergreen Digital Goods",
+      "4": "Cluster 4: Mid-Tier Evergreen Digital Goods",
+      "5": "Cluster 5: Mid-Tier Evergreen Digital Goods"
+    }
+  },
+  "top_opportunity_keywords": [
+    {
+      "keyword": "faceless digital marketing guide",
+      "est_monthly_search_volume": 55600,
+      "total_competing_listings": 6400,
+      "demand_score": 74.7,
+      "competition_score": 8.1,
+      "opportunity_score": 83.8,
+      "niche_classification": "High-Growth Blue Ocean (High Demand / Low Competition)"
+    },
+    {
+      "keyword": "notion template adhd",
+      "est_monthly_search_volume": 53500,
+      "total_competing_listings": 3850,
+      "demand_score": 60.4,
+      "competition_score": 9.2,
+      "opportunity_score": 75.0,
+      "niche_classification": "High-Growth Blue Ocean (High Demand / Low Competition)"
+    },
+    {
+      "keyword": "small business bookkeeping spreadsheet",
+      "est_monthly_search_volume": 47000,
+      "total_competing_listings": 4200,
+      "demand_score": 63.7,
+      "competition_score": 12.9,
+      "opportunity_score": 73.6,
+      "niche_classification": "High-Growth Blue Ocean (High Demand / Low Competition)"
+    },
+    {
+      "keyword": "airbnb welcome book template",
+      "est_monthly_search_volume": 41200,
+      "total_competing_listings": 5100,
+      "demand_score": 41.5,
+      "competition_score": 12.5,
+      "opportunity_score": 61.4,
+      "niche_classification": "Emerging Micro-Niche (Moderate Demand / Low Competition)"
+    },
+    {
+      "keyword": "wedding invitation template download",
+      "est_monthly_search_volume": 84000,
+      "total_competing_listings": 94000,
+      "demand_score": 72.8,
+      "competition_score": 68.8,
+      "opportunity_score": 52.0,
+      "niche_classification": "Established Cash Cow (High Demand / High Competition)"
+    },
+    {
+      "keyword": "procreate brushes bundle",
+      "est_monthly_search_volume": 54400,
+      "total_competing_listings": 29500,
+      "demand_score": 43.3,
+      "competition_score": 41.3,
+      "opportunity_score": 48.3,
+      "niche_classification": "Emerging Micro-Niche (Moderate Demand / Low Competition)"
+    },
+    {
+      "keyword": "digital planner goodnotes",
+      "est_monthly_search_volume": 69600,
+      "total_competing_listings": 48500,
+      "demand_score": 45.0,
+      "competition_score": 51.8,
+      "opportunity_score": 44.9,
+      "niche_classification": "Emerging Micro-Niche (Moderate Demand / Low Competition)"
+    },
+    {
+      "keyword": "canva instagram templates",
+      "est_monthly_search_volume": 56200,
+      "total_competing_listings": 62400,
+      "demand_score": 31.9,
+      "competition_score": 56.8,
+      "opportunity_score": 35.7,
+      "niche_classification": "Saturated Red Ocean (Low Margin / High Competition)"
+    },
+    {
+      "keyword": "printable wall art boho",
+      "est_monthly_search_volume": 73900,
+      "total_competing_listings": 185000,
+      "demand_score": 30.8,
+      "competition_score": 83.4,
+      "opportunity_score": 22.8,
+      "niche_classification": "Saturated Red Ocean (Low Margin / High Competition)"
+    },
+    {
+      "keyword": "svg cut files bundle",
+      "est_monthly_search_volume": 84300,
+      "total_competing_listings": 240000,
+      "demand_score": 30.0,
+      "competition_score": 100.0,
+      "opportunity_score": 15.6,
+      "niche_classification": "Saturated Red Ocean (Low Margin / High Competition)"
+    }
+  ],
+  "top_10_stores": [
+    {
+      "shop_name": "WeddingInvitationStudioCo",
+      "primary_keyword": "wedding invitation template download",
+      "top10p_listings_count": 86,
+      "total_reviews_captured": 3671,
+      "total_estimated_sales": 180820,
+      "total_estimated_revenue_usd": 2364394.8,
+      "avg_star_rating": 4.87
+    },
+    {
+      "shop_name": "FacelessDigitalStudioCo",
+      "primary_keyword": "faceless digital marketing guide",
+      "top10p_listings_count": 91,
+      "total_reviews_captured": 1268,
+      "total_estimated_sales": 64957,
+      "total_estimated_revenue_usd": 2061582.14,
+      "avg_star_rating": 4.85
+    },
+    {
+      "shop_name": "SmallBusinessStudioCo",
+      "primary_keyword": "small business bookkeeping spreadsheet",
+      "top10p_listings_count": 96,
+      "total_reviews_captured": 1908,
+      "total_estimated_sales": 95439,
+      "total_estimated_revenue_usd": 1736958.87,
+      "avg_star_rating": 4.85
+    },
+    {
+      "shop_name": "ProcreateBrushesStudioCo",
+      "primary_keyword": "procreate brushes bundle",
+      "top10p_listings_count": 85,
+      "total_reviews_captured": 2103,
+      "total_estimated_sales": 108477,
+      "total_estimated_revenue_usd": 1567658.76,
+      "avg_star_rating": 4.85
+    },
+    {
+      "shop_name": "CanvaInstagramStudioCo",
+      "primary_keyword": "canva instagram templates",
+      "top10p_listings_count": 98,
+      "total_reviews_captured": 2145,
+      "total_estimated_sales": 98327,
+      "total_estimated_revenue_usd": 1537364.28,
+      "avg_star_rating": 4.87
+    },
+    {
+      "shop_name": "ModernFacelessDigitalLab",
+      "primary_keyword": "faceless digital marketing guide",
+      "top10p_listings_count": 55,
+      "total_reviews_captured": 798,
+      "total_estimated_sales": 41117,
+      "total_estimated_revenue_usd": 1171687.84,
+      "avg_star_rating": 4.85
+    },
+    {
+      "shop_name": "NotionTemplateStudioCo",
+      "primary_keyword": "notion template adhd",
+      "top10p_listings_count": 71,
+      "total_reviews_captured": 1308,
+      "total_estimated_sales": 67846,
+      "total_estimated_revenue_usd": 1165518.48,
+      "avg_star_rating": 4.85
+    },
+    {
+      "shop_name": "DigitalPlannerStudioCo",
+      "primary_keyword": "digital planner goodnotes",
+      "top10p_listings_count": 83,
+      "total_reviews_captured": 2086,
+      "total_estimated_sales": 98629,
+      "total_estimated_revenue_usd": 1138739.16,
+      "avg_star_rating": 4.86
+    },
+    {
+      "shop_name": "ModernDigitalPlannerLab",
+      "primary_keyword": "digital planner goodnotes",
+      "top10p_listings_count": 51,
+      "total_reviews_captured": 1673,
+      "total_estimated_sales": 82735,
+      "total_estimated_revenue_usd": 1008762.43,
+      "avg_star_rating": 4.87
+    },
+    {
+      "shop_name": "ModernSmallBusinessLab",
+      "primary_keyword": "small business bookkeeping spreadsheet",
+      "top10p_listings_count": 50,
+      "total_reviews_captured": 1006,
+      "total_estimated_sales": 50656,
+      "total_estimated_revenue_usd": 1006198.89,
+      "avg_star_rating": 4.86
+    }
+  ]
+}

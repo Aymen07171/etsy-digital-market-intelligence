@@ -944,6 +944,41 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
             </table>
           </div>
         </div>
+
+        <!-- Stained Glass Vitrail 70s Frog & Lava Lamp 10-Page Sub-Niche Discovery -->
+        <div class="card" style="border:2px solid #d97706;background:#fffdf9;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🪟 Deep-Dive Report: “Stained Glass Vitrail 70s Frog & Lava Lamp” (10-Page Sub-Niche Matrix)</div>
+              <div class="card-subtitle">4,000 listings analyzed across 10 Vitrail × 70s Lava Lamp Frog micro-niches · Highlighting Demand-to-Supply asymmetry & Opportunity Scores</div>
+            </div>
+            <span class="badge-pill badge-mod">🪟 Vitrail × 70s Frog Lab</span>
+          </div>
+          <div class="table-container">
+            <table class="erank-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Vitrail Sub-Niche Variation</th>
+                  <th>Target Long-Tail Keyword</th>
+                  <th class="num">Etsy Vol</th>
+                  <th class="num">Google Vol</th>
+                  <th class="num">YoY Growth</th>
+                  <th class="num">Competing Listings</th>
+                  <th class="num">Demand/Supply</th>
+                  <th class="num">Avg Price ($)</th>
+                  <th class="num">Opp Score</th>
+                  <th>Strategic Verdict</th>
+                </tr>
+              </thead>
+              <tbody id="vitrail-subniches-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5 Original High-Demand / Low-Competition Vitrail Design Blueprints -->
+        <h2 style="font-size:18px;font-weight:800;margin:22px 0 12px 0;color:#064428;">🎨 5 Original High-Demand / Low-Competition Design Blueprints (“Stained Glass Vitrail 70s Frog & Lava Lamp”)</h2>
+        <div class="playbook-grid" id="vitrail-5-designs-grid"></div>
       </section>
 
       <!-- ===================================================================== -->
@@ -1257,6 +1292,49 @@ def render_standalone_html(app_data: Dict[str, Any]) -> str:
             <td class="num" style="color:#d35400;font-weight:700;">🔥 ${{e.popular_now_pct.toFixed(1)}}%</td>
             <td class="num">${{getOppBadge(e.element_opportunity_score)}}</td>
           </tr>
+        `).join('');
+      }}
+
+      // Render Stained Glass Vitrail 70s Frog & Lava Lamp 10-Sub-Niche Matrix
+      const vitrailSubTbody = document.getElementById('vitrail-subniches-tbody');
+      if (vitrailSubTbody && pc.vitrail_subniches) {{
+        vitrailSubTbody.innerHTML = pc.vitrail_subniches.map(v => `
+          <tr>
+            <td><strong>${{v.subniche_id}}</strong></td>
+            <td style="font-weight:700;color:#064428;">🪟 ${{v.subniche_label}}</td>
+            <td><code>${{v.subniche_keyword}}</code></td>
+            <td class="num"><strong>${{fmtNum(v.etsy_monthly_searches)}}</strong></td>
+            <td class="num">${{fmtNum(v.google_monthly_searches)}}</td>
+            <td class="num" style="color:#0b6e40;font-weight:700;">+${{v.yoy_growth_pct.toFixed(1)}}%</td>
+            <td class="num"><strong>${{fmtNum(v.competing_listings)}}</strong></td>
+            <td class="num" style="color:#d35400;font-weight:800;">${{v.demand_to_supply_ratio.toFixed(1)}}x</td>
+            <td class="num"><strong>${{fmtUsd(v.avg_price_usd)}}</strong></td>
+            <td class="num">${{getOppBadge(v.subniche_opportunity_score)}}</td>
+            <td style="font-size:11.5px;font-weight:600;">${{v.subniche_verdict}}</td>
+          </tr>
+        `).join('');
+      }}
+
+      // Render 5 Original High-Demand / Low-Competition Vitrail Design Blueprints
+      const vitrailDesGrid = document.getElementById('vitrail-5-designs-grid');
+      if (vitrailDesGrid && pc.vitrail_5_original_designs) {{
+        vitrailDesGrid.innerHTML = pc.vitrail_5_original_designs.map(d => `
+          <div class="playbook-card tier1">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3 style="font-size:15px;font-weight:800;color:#064428;">🎨 Design #${{d.design_rank}}: ${{d.design_title}} (<code>${{d.sku_code}}</code>)</h3>
+              ${{getOppBadge(d.opportunity_score)}}
+            </div>
+            <div class="playbook-hook">
+              Target Keyword: <code>${{d.target_subniche_keyword}}</code> · <strong>${{fmtNum(d.etsy_search_demand_mo)}}</strong> Etsy + <strong>${{fmtNum(d.google_search_demand_mo)}}</strong> Google searches/mo · Only <strong>${{d.competing_etsy_listings}} competing listings</strong> (${{d.demand_to_supply_ratio}}x Demand/Supply) · Target Price: <strong>${{fmtUsd(d.recommended_retail_price_usd)}}</strong>
+            </div>
+            <div style="font-size:12.5px;line-height:1.65;color:var(--text-primary);">
+              <div><strong>🐸 Lower 65% Character Focal Zone:</strong> ${{d.lower_65_character_composition}}</div>
+              <div><strong>📸 Top 35% Camera Cutout Safe-Zone:</strong> ${{d.top_35_camera_safe_zone}}</div>
+              <div><strong>🪟 Stained Glass Color & Solder Spec:</strong> ${{d.color_and_lighting_spec}}</div>
+              <div><strong>🏷️ 13-Tag Etsy SEO Stack:</strong> <code>${{d.etsy_13_tag_stack}}</code></div>
+              <div><strong>🚀 Why It Wins on Etsy:</strong> ${{d.why_it_wins_on_etsy}}</div>
+            </div>
+          </div>
         `).join('');
       }}
     }}

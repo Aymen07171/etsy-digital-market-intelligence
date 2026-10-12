@@ -1,0 +1,17 @@
+shop_name,shop_country,shop_city,is_moroccan_store,is_emerging_50_80_sales,store_total_sales,top10p_listings,subniches_covered,best_page_rank,avg_price_usd,captured_sales_top10p,captured_revenue_top10p_usd
+CottagecoreCaseCollective,United Kingdom,Bristol,False,False,3400,456,10,1,24.95,33281,813847.73
+Retro70sPhoneArt,United States,"Brooklyn, NY",False,False,2850,450,10,1,24.84,32729,776559.65
+CaseCraftStudio,United States,"Los Angeles, CA",False,False,1420,451,10,1,25.1,29448,715035.72
+GoblincoreTechGoods,United States,"Seattle, WA",False,False,1980,416,10,1,24.78,28801,684229.95
+70sShroomCaseStudio,Germany,Berlin,False,True,69,227,10,1,25.01,15517,383066.84
+ElectricToadCases,United States,"Portland, OR",False,True,77,214,10,1,25.07,15061,375267.27
+LavaLampFrogCo,United Kingdom,Brighton,False,True,72,195,10,1,25.31,14548,353685.58
+TiffanyFrogCreations,Australia,Melbourne,False,True,59,211,10,1,25.14,13899,346938.61
+VitrailGoblincore,Canada,Vancouver,False,True,55,207,10,1,25.1,13795,343725.16
+GroovyToadstoolLab,United States,"Austin, TX",False,True,64,210,10,1,25.02,12636,306775.5
+FesArtisanCover,Morocco,Fes,True,True,54,169,10,1,25.14,11974,294924.61
+MarrakechVitrailArt,Morocco,Marrakech,True,True,74,168,10,1,25.21,11517,283083.78
+TangierGroovyPrint,Morocco,Tangier,True,True,63,171,10,1,25.08,11497,277366.49
+CasablancaCaseCraft,Morocco,Casablanca,True,True,68,142,10,1,25.28,9723,241294.46
+RabatRetroCases,Morocco,Rabat,True,True,58,151,10,1,24.54,10154,239878.69
+AtlasFrogStudioMA,Morocco,Agadir,True,True,79,162,10,1,25.72,8861,228251.68

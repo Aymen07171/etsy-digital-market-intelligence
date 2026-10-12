@@ -90,6 +90,19 @@ def _load_or_build_phone_case_payload() -> Dict[str, Any]:
         frog_win_df = pd.read_csv(frog_win_csv)
         frog_el_df = pd.read_csv(frog_el_csv)
 
+    vitrail_dir = OUTPUT_DIR / "vitrail_frog_subniches"
+    vitrail_matrix_csv = vitrail_dir / "vitrail_subniche_matrix.csv"
+    vitrail_designs_csv = vitrail_dir / "vitrail_5_original_designs.csv"
+
+    if not (vitrail_matrix_csv.exists() and vitrail_designs_csv.exists()):
+        from vitrail_frog_subniche_research import run_vitrail_frog_10page_discovery
+        v_res = run_vitrail_frog_10page_discovery()
+        vitrail_matrix_df = v_res["matrix_df"]
+        vitrail_designs_df = v_res["designs_df"]
+    else:
+        vitrail_matrix_df = pd.read_csv(vitrail_matrix_csv)
+        vitrail_designs_df = pd.read_csv(vitrail_designs_csv)
+
     return {
         "keywords": kw_df.to_dict(orient="records"),
         "moroccan_stores": moroccan_df.to_dict(orient="records"),
@@ -99,6 +112,8 @@ def _load_or_build_phone_case_payload() -> Dict[str, Any]:
         "frog_subniches": frog_matrix_df.to_dict(orient="records"),
         "frog_winning_variations": frog_win_df.head(30).to_dict(orient="records"),
         "frog_design_elements": frog_el_df.to_dict(orient="records"),
+        "vitrail_subniches": vitrail_matrix_df.to_dict(orient="records"),
+        "vitrail_5_original_designs": vitrail_designs_df.to_dict(orient="records"),
     }
 
 
